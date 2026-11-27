@@ -1,5 +1,5 @@
 // src/lib/dashboard/ad-settings.ts — 고객 쓰기 액션 3종의 코어(의사·설정·자격증명).
-// 네이버 광고 설정·검증 계약. 제품 방향은 README.md를 따른다.
+// 네이버 광고 설정·검증 계약. 제품 방향은 docs/PRODUCT.md를 따른다.
 // pglite로 직접 테스트하기 위해 'use server' 래퍼(src/lib/dashboard/actions.ts)와 분리한다
 // (toggleSubscriptionForFirm/updateLeadStatusForFirm과 동일한 분리 패턴).
 import { and, eq } from 'drizzle-orm'

@@ -1,6 +1,6 @@
 #!/bin/zsh
 # 사기 키워드 데일리 에이전트 — crontab 진입점
-# 제품 방향은 README.md를 따르며, 실행 계약은 이 스크립트에 자급식으로 둔다.
+# 제품 방향은 docs/PRODUCT.md를 따르며, 실행 계약은 이 스크립트에 자급식으로 둔다.
 # 결정적 단계는 셸이 직접 수행, LLM 추출(2단계)만 OpenAI Codex에 위임(실패해도 계속).
 # source warning은 기존 데이터의 후속 처리는 마치되 최종 성공으로 기록하지 않고 supervisor 재시도로 넘긴다.
 set -u
