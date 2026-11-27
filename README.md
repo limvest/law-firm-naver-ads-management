@@ -58,6 +58,8 @@
 - 광고 계정의 API 키는 AES-256-GCM으로 암호화해 저장합니다.
 - 실제 등록·변경은 사람의 승인을 거친 작업만 실행합니다.
 
+키워드 관리와 자동 입찰 부분은 별도 저장소로 분리했습니다: **[naver-powerlink-engine](https://github.com/limvest/naver-powerlink-engine)**. 실제 검색 결과에서 광고 순위를 관측해 입찰가를 조정하는 자동 입찰 프로그램은 그 저장소에만 있고, 이 저장소에는 키워드 등록·심사·운영 코드와 입찰 기준 금액 설정만 있습니다.
+
 ### 4. 상담 접수와 대시보드
 
 - 상담 신청의 이름·연락처·내용을 암호화해 저장하고, 텔레그램으로 알립니다.
@@ -110,6 +112,7 @@ python3 -m unittest discover -s scripts/agent -p 'test_*.py'   # 수집기 테�
 | 문서 | 내용 |
 | --- | --- |
 | [docs/PRODUCT.md](docs/PRODUCT.md) | 제품 정의, 사용자, 제품 흐름, 완성 기준 |
+| [naver-powerlink-engine](https://github.com/limvest/naver-powerlink-engine) | 파워링크 키워드 관리·자동 입찰 엔진 (별도 저장소) |
 | [docs/PRODUCT-GOAL-ARCHITECTURE-GTM.md](docs/PRODUCT-GOAL-ARCHITECTURE-GTM.md) | 목표 아키텍처, 데이터 구조, 시장 진입 계획 |
 | [docs/IMPLEMENTATION-STATUS.md](docs/IMPLEMENTATION-STATUS.md) | "코드가 있다 / 로컬에서 검증됐다 / 시장에서 증명됐다"를 나눠 적은 구현 현황 |
 | [docs/PRODUCTION-OPERATIONS.md](docs/PRODUCTION-OPERATIONS.md) | 운영 구조와 배포·복구 절차 |
