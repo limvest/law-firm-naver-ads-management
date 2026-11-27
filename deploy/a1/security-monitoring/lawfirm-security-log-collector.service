@@ -1,0 +1,19 @@
+[Unit]
+Description=Lawfirm Ads structured security event collector
+After=docker.service network-online.target
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/lawfirm-security-log-collector
+Restart=always
+RestartSec=2s
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/log/lawfirm-security /run/lock
+
+[Install]
+WantedBy=multi-user.target

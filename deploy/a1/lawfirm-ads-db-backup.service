@@ -1,0 +1,11 @@
+[Unit]
+Description=Back up the Lawfirm Ads PostgreSQL database
+Requires=docker.service
+After=docker.service lawfirm-ads-click.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/lawfirm-ads/current/deploy/a1/backup-postgres.sh
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

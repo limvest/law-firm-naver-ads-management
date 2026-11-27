@@ -1,0 +1,27 @@
+{
+  "_note": "총운영자 템플릿. 1) data/engine/firms/{slug}.json으로 복사, 2) 모든 {placeholder}를 실제 값으로 교체, 3) DATABASE_URL=… npm run firm:provision -- --file data/engine/firms/{slug}.json 실행. id는 생략하면 slug 기반 안정 ID를 자동 배정한다. domain은 사무소의 네이버 비즈채널과 동일해야 한다. lawyers·wordmark에는 검증된 실자산만 넣는다. 원클릭 개설은 안전을 위해 landingReady=false로 시작하며 공개는 별도 검수 뒤 전환한다.",
+  "firm": {
+    "slug": "{slug}",
+    "name": "{사무소명}",
+    "adLawyerName": "{광고책임변호사명}",
+    "phone": "{02-0000-0000}",
+    "phoneIntl": "{+82-2-0000-0000}",
+    "address": "{도로명주소 전체}",
+    "addressRegion": "{시/도}",
+    "addressLocality": "{시/군/구}",
+    "kakaoUrl": null,
+    "domain": "{example.com}",
+    "domainAliases": [],
+    "lawyers": [
+      {
+        "name": "{변호사명}",
+        "title": "{직함, 예: 대표변호사}",
+        "badges": ["{사실에 근거한 경력·인증만 기재 — 성과를 단정하는 표현은 넣지 않는다}"],
+        "photo": null
+      }
+    ],
+    "wordmark": "{랜딩에 쓸 워드마크 텍스트}",
+    "siteTemplate": "response-room",
+    "landingReady": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "campaign": "법무법인 샘플원 사건명 랜딩 Version3",
+  "createdAt": "2026-09-01",
+  "generator": "OpenAI built-in image generation tool",
+  "usage": "법무법인 샘플원 자체 광고 페이지 전용",
+  "disclosure": "피해 상황과 법률 검토 절차를 설명하기 위한 연출 이미지이며 실제 고객 자료가 아닙니다.",
+  "rules": [
+    "경쟁사 이미지·영상·로고·소스 미사용",
+    "실제 금융기관·메신저 브랜드 및 개인정보 미사용",
+    "회수 성공이나 결과 보장을 암시하지 않음",
+    "변호사 인물은 샘플원이 제공한 실제 사진만 사용하고 AI로 얼굴을 생성하지 않음"
+  ],
+  "assets": [
+    {"file":"hero/hero-bg-d.webp","role":"desktop hero background","promptSummary":"modern Korean legal office, organized evidence desk, navy and teal, left copy space, no people, text, logo or personal data"},
+    {"file":"hero/hero-bg-m.webp","role":"mobile crop of hero background","derivedFrom":"hero/hero-bg-d.webp"},
+    {"file":"signals/signal-message.webp","role":"messenger approach warning","promptSummary":"generic messenger conversation on smartphone, staged warning scene, no identifiable app or personal data"},
+    {"file":"signals/signal-fake-profit.webp","role":"fake profit dashboard warning","promptSummary":"fictional investment dashboard with implausible profit, no real brand, account or readable personal data"},
+    {"file":"signals/signal-withdrawal-fee.webp","role":"withdrawal fee warning","promptSummary":"fictional blocked withdrawal and extra fee demand, no real bank branding or personal data"},
+    {"file":"process/process-evidence.webp","role":"evidence preservation","promptSummary":"law office hands organizing dummy chats, transfers and URLs, no customer data"},
+    {"file":"process/process-fund-review.webp","role":"fund-flow review","promptSummary":"lawyer reviewing simplified fund-flow diagram and notes, process only, no recovery claim"},
+    {"file":"process/process-legal-response.webp","role":"legal response review","promptSummary":"Korean legal response documents and timeline under review, no institution logo, identity or outcome claim"},
+    {"file":"people/lawyere-card.webp","role":"actual lawyer portrait","source":"샘플원 제공 원본 재가공"},
+    {"file":"people/lawyerf-card.webp","role":"actual lawyer portrait","source":"샘플원 제공 원본 재가공"},
+    {"file":"people/lawyerg-card.webp","role":"actual lawyer portrait","source":"샘플원 제공 원본 재가공"},
+    {"file":"people/lawyerh-card.webp","role":"actual lawyer portrait","source":"샘플원 제공 원본 재가공"}
+  ]
+}

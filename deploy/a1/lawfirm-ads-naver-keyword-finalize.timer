@@ -1,0 +1,11 @@
+[Unit]
+Description=Finalize Naver keyword exposure after provider aggregation
+
+[Timer]
+OnCalendar=Tue..Sat *-*-* 08:30:00 Asia/Seoul
+Persistent=true
+AccuracySec=1min
+Unit=lawfirm-ads-naver-keyword-finalize.service
+
+[Install]
+WantedBy=timers.target

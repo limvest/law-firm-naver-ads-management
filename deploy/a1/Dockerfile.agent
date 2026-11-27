@@ -1,0 +1,17 @@
+FROM node:24-bookworm-slim
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends ca-certificates curl git python3 zsh \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund
+
+COPY . .
+RUN mkdir -p /app/data/keyword-inbox /var/lock/lawfirm-ads \
+  && chown -R node:node /app /var/lock/lawfirm-ads
+
+USER node
+ENV NODE_ENV=production
+CMD ["zsh", "scripts/agent/click-collection-daemon.sh"]

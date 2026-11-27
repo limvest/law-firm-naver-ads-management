@@ -1,0 +1,10 @@
+/var/log/lawfirm-security/*.jsonl {
+    daily
+    rotate 30
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0600 root root
+    su root root
+}

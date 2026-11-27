@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+log_dir="${LAWFIRM_SECURITY_LOG_DIR:-/var/log/lawfirm-security}"
+event_log="$log_dir/events.jsonl"
+alert_log="$log_dir/alerts.jsonl"
+state_dir="${LAWFIRM_SECURITY_STATE_DIR:-/var/lib/lawfirm-security}"
+state_file="$state_dir/last-alert-epoch"
+env_file="${LAWFIRM_SECURITY_ENV_FILE:-/etc/lawfirm-ads/agent.env}"
+window_seconds="${LAWFIRM_SECURITY_WINDOW_SECONDS:-300}"
+cooldown_seconds="${LAWFIRM_SECURITY_COOLDOWN_SECONDS:-900}"
+
+[[ -s "$event_log" ]] || exit 0
+install -d -m 0700 "$log_dir" "$state_dir"
+touch "$alert_log"
+chmod 0600 "$alert_log"
+
+now_epoch=$(date -u +%s)
+cutoff_epoch=$((now_epoch - window_seconds))
+
+summary=$(tail -n 50000 "$event_log" | jq -sc --argjson cutoff "$cutoff_epoch" '
+  [ .[]
+    | select(
+        ((.occurred_at // "") | sub("\\.[0-9]+Z$"; "Z") | fromdateiso8601?) >= $cutoff
+      )
+  ] as $events
+  | [ $events[] | select(.event_class == "attack" or .outcome == "blocked") ] as $attacks
+  | [ $events[] | select((.status // 0) >= 500) ] as $server_errors
+  | [ $attacks[] | select(.block_reason == "rate_limited") ] as $rate_limited
+  | [ $attacks[] | select(.block_reason == "csrf" or .block_reason == "host_mismatch") ] as $boundary_attacks
+  | ($attacks | group_by(.ip_hmac // "unknown") | map({key:(.[0].ip_hmac // "unknown"), count:length}) | sort_by(.count) | last // {key:"none",count:0}) as $top
+  | {
+      total: ($events | length),
+      attacks: ($attacks | length),
+      server_errors: ($server_errors | length),
+      rate_limited: ($rate_limited | length),
+      boundary_attacks: ($boundary_attacks | length),
+      top_ip_hmac: $top.key,
+      top_ip_count: $top.count
+    }
+')
+
+attacks=$(jq -r '.attacks' <<<"$summary")
+server_errors=$(jq -r '.server_errors' <<<"$summary")
+rate_limited=$(jq -r '.rate_limited' <<<"$summary")
+boundary_attacks=$(jq -r '.boundary_attacks' <<<"$summary")
+top_ip_count=$(jq -r '.top_ip_count' <<<"$summary")
+
+severity=""
+if (( server_errors >= 3 )); then
+  severity="CRITICAL"
+elif (( top_ip_count >= 20 || rate_limited >= 20 || boundary_attacks >= 20 || attacks >= 50 )); then
+  severity="HIGH"
+fi
+
+[[ -n "$severity" ]] || exit 0
+
+last_alert=0
+if [[ -r "$state_file" ]]; then
+  read -r last_alert < "$state_file" || last_alert=0
+fi
+[[ "$last_alert" =~ ^[0-9]+$ ]] || last_alert=0
+(( now_epoch - last_alert >= cooldown_seconds )) || exit 0
+
+top_ip_hmac=$(jq -r '.top_ip_hmac' <<<"$summary")
+if [[ "$top_ip_hmac" != "unknown" && "$top_ip_hmac" != "none" ]]; then
+  top_ip_hmac="${top_ip_hmac:0:12}..."
+fi
+
+alert_record=$(jq -cn \
+  --arg occurred_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg severity "$severity" \
+  --argjson window_seconds "$window_seconds" \
+  --argjson summary "$summary" \
+  '{occurred_at:$occurred_at,severity:$severity,window_seconds:$window_seconds,summary:$summary}')
+printf '%s\n' "$alert_record" >> "$alert_log"
+
+read_env_value() {
+  local key="$1"
+  awk -F= -v wanted="$key" '$1 == wanted { sub(/^[^=]*=/, ""); gsub(/^"|"$/, ""); print; exit }' "$env_file"
+}
+
+bot_token=$(read_env_value TELEGRAM_BOT_TOKEN)
+chat_id=$(read_env_value TELEGRAM_CHAT_ID)
+[[ -n "$bot_token" && -n "$chat_id" ]] || exit 0
+
+message_file=$(mktemp)
+curl_config=$(mktemp)
+trap 'rm -f "$message_file" "$curl_config"' EXIT
+chmod 0600 "$message_file" "$curl_config"
+
+printf '%s\n' \
+  "[샘플원 보안 경보 · $severity]" \
+  "최근 5분 요청: $(jq -r '.total' <<<"$summary")건" \
+  "공격/차단: $attacks건" \
+  "경계 공격: $boundary_attacks건" \
+  "속도 제한: $rate_limited건" \
+  "서버 오류: $server_errors건" \
+  "최다 IP HMAC: $top_ip_hmac ($top_ip_count건)" \
+  "" \
+  "원 IP·상담정보는 이 알림에 포함하지 않았습니다." > "$message_file"
+
+printf 'url = "https://api.telegram.org/bot%s/sendMessage"\nfail\nsilent\nshow-error\n' "$bot_token" > "$curl_config"
+curl --config "$curl_config" \
+  --data-urlencode "chat_id=$chat_id" \
+  --data-urlencode "text@$message_file" >/dev/null
+
+printf '%s\n' "$now_epoch" > "$state_file"
+chmod 0600 "$state_file"

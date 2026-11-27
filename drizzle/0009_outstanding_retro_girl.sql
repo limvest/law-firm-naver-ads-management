@@ -1,0 +1,1 @@
+ALTER TABLE "observations" ADD COLUMN "source_family" text;

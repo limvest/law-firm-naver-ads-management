@@ -1,0 +1,7 @@
+[Unit]
+Description=Lawfirm Ads scheduled Telegram operations report
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/lawfirm-ads-telegram-digest

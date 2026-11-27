@@ -1,0 +1,18 @@
+[Unit]
+Description=Lawfirm Ads click collection listener
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/lawfirm-ads
+ExecStart=/usr/bin/docker compose -f /opt/lawfirm-ads/current/deploy/a1/docker-compose.yml up --no-deps --no-color click-listener
+ExecStop=/usr/bin/docker compose -f /opt/lawfirm-ads/current/deploy/a1/docker-compose.yml stop -t 45 click-listener
+Restart=always
+RestartSec=10
+TimeoutStartSec=0
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target

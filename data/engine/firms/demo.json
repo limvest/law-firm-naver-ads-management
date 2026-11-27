@@ -1,0 +1,10 @@
+{ "firm": { "id": 2, "slug": "demo", "name": "법률사무소 데모", "adLawyerName": "김데모",
+  "phone": "02-0000-0000", "phoneIntl": "+82-2-0000-0000",
+  "address": "데모특별시 데모구 데모로 1 (제품 데모용 가상 주소)",
+  "addressRegion": "데모특별시", "addressLocality": "데모구",
+  "kakaoUrl": null, "domain": null,
+  "lawyers": [
+    { "name": "김데모", "title": "대표변호사", "badges": ["제품 데모용 가상 프로필"], "photo": null },
+    { "name": "이데모", "title": "변호사", "badges": ["제품 데모용 가상 프로필"], "photo": null }
+  ],
+  "wordmark": "DEMO", "siteTemplate": "case-brief" } }

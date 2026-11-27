@@ -1,0 +1,11 @@
+[Unit]
+Description=Sweep Naver keyword exposure after weekday ad hours
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 22:10:00 Asia/Seoul
+Persistent=true
+AccuracySec=1min
+Unit=lawfirm-ads-naver-keyword-sweep.service
+
+[Install]
+WantedBy=timers.target

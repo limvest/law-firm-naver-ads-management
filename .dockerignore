@@ -1,0 +1,17 @@
+.git
+.next
+.vercel
+.env*
+node_modules
+output
+tmp
+data/keyword-inbox
+data/dashboard.html
+data/harvest-health.json
+data/harvest-health.json.lock
+*.log
+*.tsbuildinfo
+.DS_Store
+assets/previz
+BOOSTER
+data/static-landings

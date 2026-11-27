@@ -1,0 +1,1 @@
+ALTER TABLE "scam_pages" ADD CONSTRAINT "scam_pages_keyword_unique" UNIQUE("keyword_id");

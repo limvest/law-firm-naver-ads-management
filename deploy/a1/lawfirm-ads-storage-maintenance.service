@@ -1,0 +1,13 @@
+[Unit]
+Description=Compress completed Lawfirm Ads collection records
+After=docker.service
+
+[Service]
+Type=oneshot
+TimeoutStartSec=15min
+ExecStart=/usr/bin/flock -n /var/lib/lawfirm-ads/lock/storage-maintenance.lock /usr/bin/python3 /opt/lawfirm-ads/current/deploy/a1/maintain-inbox.py --apply
+Nice=15
+IOSchedulingClass=idle
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/lawfirm-ads/data/keyword-inbox /var/lib/lawfirm-ads/lock

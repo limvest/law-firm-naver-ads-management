@@ -1,0 +1,10 @@
+[Unit]
+Description=Send Lawfirm Ads daily Telegram performance report
+
+[Timer]
+OnCalendar=*-*-* 09:05:00 Asia/Seoul
+Persistent=true
+AccuracySec=30s
+
+[Install]
+WantedBy=timers.target

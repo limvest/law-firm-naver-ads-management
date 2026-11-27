@@ -1,0 +1,1 @@
+ALTER TABLE "firm_accounts" ADD CONSTRAINT "firm_accounts_firm" UNIQUE("firm_id");

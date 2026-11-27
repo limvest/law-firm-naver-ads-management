@@ -1,0 +1,11 @@
+[Unit]
+Description=Check Sampleone Naver ad hours every five minutes
+
+[Timer]
+OnCalendar=*-*-* *:00/5:00 Asia/Seoul
+Persistent=true
+AccuracySec=30s
+Unit=lawfirm-ads-naver-ad-hours.service
+
+[Install]
+WantedBy=timers.target

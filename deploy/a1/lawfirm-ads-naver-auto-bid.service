@@ -1,0 +1,22 @@
+[Unit]
+Description=Continuously stream Naver rank observations into bounded bid updates
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/lawfirm-ads
+# The streaming engine observes in parallel, commits each group-sized batch,
+# and interleaves 3-minute rank rechecks while fresh observations continue.
+ExecStart=/usr/bin/flock --exclusive --nonblock /run/lock/lawfirm-ads-naver-auto-bid.lock /usr/bin/docker compose -f /opt/lawfirm-ads/current/deploy/a1/docker-compose.yml --profile scheduled run --rm --no-deps daily zsh programs/naver-auto-bid/run-continuous-streaming.sh
+Restart=always
+RestartSec=10s
+TimeoutStartSec=infinity
+TimeoutStopSec=90s
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=6
+
+[Install]
+WantedBy=multi-user.target

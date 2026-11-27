@@ -1,0 +1,1 @@
+ALTER TABLE "firm_keywords" ALTER COLUMN "ad_desired" SET DEFAULT false;

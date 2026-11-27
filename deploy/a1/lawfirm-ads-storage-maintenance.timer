@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily Lawfirm Ads storage maintenance
+
+[Timer]
+OnCalendar=*-*-* 14:10:00 Asia/Seoul
+Persistent=true
+RandomizedDelaySec=10m
+
+[Install]
+WantedBy=timers.target

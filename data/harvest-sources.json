@@ -1,0 +1,332 @@
+{
+ "sources": [
+  {
+   "id": "google-news-rss",
+   "type": "google_news_rss",
+   "name": "Google News RSS 사기피해 검색",
+   "url": "https://news.google.com/rss/search",
+   "sourceType": "news",
+   "sourceFamily": "google-news-rss",
+   "recrawlDays": 1,
+   "queries": [
+    "리딩방 사기 거래소",
+    "코인 사기 출금 거절",
+    "투자 사기 앱 피해",
+    "로맨스 스캠 피해",
+    "중고거래 사기 안전결제",
+    "주식 리딩 사기 피해"
+   ],
+   "queryDelaySeconds": 1,
+   "seenLimit": 5000
+  },
+  {
+   "id": "community-cafe",
+   "type": "naver_cafe",
+   "name": "피해자 커뮤니티 카페",
+   "cafeId": 10000001,
+   "cafeUrl": "samplecafe",
+   "menus": [
+    {
+     "menuId": 868,
+     "menuName": "투자사기 여부 문의"
+    },
+    {
+     "menuId": 900,
+     "menuName": "피해사연 등록"
+    },
+    {
+     "menuId": 891,
+     "menuName": "등록된 피해사례(일별)"
+    },
+    {
+     "menuId": 291,
+     "menuName": "자유게시판"
+    }
+   ],
+   "perPage": 30,
+   "sourceType": "community",
+   "search": true
+  },
+  {
+   "id": "competitorn-blog",
+   "type": "webpage",
+   "name": "법무법인 경쟁사N 블로그",
+   "url": "https://competitor-n.example.com/blog/%EB%A6%AC%EB%94%A9%EB%B0%A9%EC%82%AC%EA%B8%B0-%ED%94%BC%ED%95%B4%EC%9E%90%EB%9D%BC%EB%A9%B4-%EA%BC%AD-%EC%95%8C%EC%95%84%EC%95%BC-%ED%95%A0-3%EA%B0%80%EC%A7%80/",
+   "sourceType": "report"
+  },
+  {
+   "id": "competitorm-stockscam",
+   "type": "webpage",
+   "name": "법무법인 경쟁사M 리딩방 피해회복",
+   "url": "https://competitor-m.example.com/stockscam/",
+   "sourceType": "report",
+   "recrawlDays": 7
+  },
+  {
+   "id": "competitor-p-blog",
+   "type": "naver_blog",
+   "name": "법무법인 경쟁사P 블로그",
+   "sourceType": "report",
+   "sourceFamily": "naver-blog:sampleblog2",
+   "recrawlDays": 7,
+   "blogId": "sampleblog2",
+   "jsonMode": "naver-loose-json"
+  },
+  {
+   "id": "competitorb-blog",
+   "type": "naver_blog",
+   "name": "경쟁사B 법률사무소 블로그",
+   "sourceType": "report",
+   "sourceFamily": "competitorb-law",
+   "recrawlDays": 7,
+   "blogId": "sampleblog1",
+   "jsonMode": "naver-loose-json"
+  },
+  {
+   "id": "competitorj-blog",
+   "type": "naver_blog",
+   "name": "법무법인 경쟁사J 블로그",
+   "sourceType": "report",
+   "sourceFamily": "naver-blog:sampleblog3",
+   "recrawlDays": 7,
+   "blogId": "sampleblog3",
+   "jsonMode": "naver-loose-json"
+  },
+  {
+   "id": "competitori-planet-rss",
+   "type": "rss",
+   "name": "법무법인 경쟁사I 피해사례 블로그 A",
+   "url": "https://sampleblog4.tistory.com/rss",
+   "sourceType": "report",
+   "sourceFamily": "competitori-tistory",
+   "recrawlDays": 1
+  },
+  {
+   "id": "competitori-maitres-rss",
+   "type": "rss",
+   "name": "법무법인 경쟁사I 피해사례 블로그 B",
+   "url": "https://sampleblog5.tistory.com/rss",
+   "sourceType": "report",
+   "sourceFamily": "competitori-tistory",
+   "recrawlDays": 1
+  },
+  {
+   "id": "competitor-k-scam-sitemap",
+   "type": "sitemap",
+   "name": "경쟁사K 법률사무소 사건 사이트맵",
+   "url": "https://www.competitor-k.example.com/sitemap-index.xml",
+   "includePath": "/scam/",
+   "sourceType": "report",
+   "sourceFamily": "competitor-k",
+   "competitorKeywordSource": true,
+   "recrawlDays": 1,
+   "maxSitemaps": 100,
+   "maxItemsPerRun": 500
+  },
+  {
+   "id": "competitora-recovery-sitemap",
+   "type": "sitemap",
+   "name": "경쟁사A 피해회복 사건 사이트맵",
+   "url": "https://www.competitor-a-victimcare.example.com/sitemap.xml",
+   "includePath": "/recovery/",
+   "sourceType": "report",
+   "sourceFamily": "competitora-law",
+   "competitorKeywordSource": true,
+   "recrawlDays": 1,
+   "maxSitemaps": 100,
+   "maxItemsPerRun": 500
+  },
+  {
+   "id": "competitoro-cases-sitemap",
+   "type": "sitemap",
+   "name": "COMPETITOR-O 사건 사이트맵",
+   "url": "https://competitor-o.example.com/sitemap-index.xml",
+   "includePath": "/cases/",
+   "sourceType": "report",
+   "sourceFamily": "competitoro",
+   "competitorKeywordSource": true,
+   "recrawlDays": 1,
+   "maxSitemaps": 100,
+   "maxItemsPerRun": 500
+  },
+  {
+   "id": "competitorb-fraud-sitemap",
+   "type": "sitemap",
+   "name": "경쟁사B 법률사무소 사건 사이트맵",
+   "url": "https://competitor-b-office.kr.example.com/sitemap.xml",
+   "includePath": "/fraud/",
+   "sitemapTitleStrategy": "first-slug-token",
+   "fetchPageMetadata": true,
+   "fetchPageBodyFacts": true,
+   "sourceType": "report",
+   "sourceFamily": "competitorb-law",
+   "competitorKeywordSource": true,
+   "recrawlDays": 1,
+   "maxSitemaps": 100,
+   "maxItemsPerRun": 100,
+   "seenLimit": 50000
+  },
+  {
+   "id": "competitorg-fraud-sitemap",
+   "type": "sitemap",
+   "name": "법률사무소 경쟁사G 사건 사이트맵",
+   "url": "https://competitor-g.example.com/sitemap.xml",
+   "includePath": "/fraud/",
+   "fetchPageMetadata": true,
+   "sourceType": "report",
+   "sourceFamily": "competitorg-law",
+   "competitorKeywordSource": true,
+   "recrawlDays": 1,
+   "maxSitemaps": 100,
+   "maxItemsPerRun": 100,
+   "seenLimit": 50000
+  },
+  {
+   "id": "competitorl-keyword-sitemap",
+   "type": "sitemap",
+   "name": "법무법인 경쟁사L 키워드 사이트맵",
+   "url": "https://competitor-l.example.com/sitemap.xml",
+   "fetchPageMetadata": true,
+   "sourceType": "report",
+   "sourceFamily": "competitorl-law",
+   "observedAdDomains": ["g13.competitor-l.example.com"],
+   "competitorKeywordSource": true,
+   "recrawlDays": 1,
+   "maxSitemaps": 100,
+   "maxItemsPerRun": 100,
+   "seenLimit": 50000
+  },
+  {
+   "id": "competitore-case-sitemap",
+   "type": "sitemap",
+   "name": "법률사무소 경쟁사E 사건 사이트맵",
+   "url": "https://competitor-e-scam.example.com/multipage-sitemap.xml",
+   "includePath": "/c/",
+   "fetchPageMetadata": true,
+   "sourceType": "report",
+   "sourceFamily": "competitore-law",
+   "observedAdDomains": ["competitor-e-scam19.example.com"],
+   "competitorKeywordSource": true,
+   "recrawlDays": 1,
+   "maxSitemaps": 100,
+   "maxItemsPerRun": 100,
+   "seenLimit": 50000
+  },
+  {
+   "id": "competitor-h-fraud-sitemap-candidate",
+   "type": "sitemap",
+   "name": "법률사무소 경쟁사H 사건 소스 후보",
+   "url": "https://competitor-h.example.com/sitemap.xml",
+   "includePath": "/fraud/",
+   "sourceType": "report",
+   "sourceFamily": "competitor-h-law",
+   "observedAdUrl": "https://competitor-h.example.com/fraud/mockqib",
+   "observedAdDomains": ["competitor-h-ad.example.com"],
+   "competitorKeywordSource": true,
+   "fetchPageMetadata": true,
+   "fetchPageBodyFacts": true,
+   "parserSpec": {
+    "schemaVersion": 1,
+    "adapter": "sitemap",
+    "entryUrl": "https://competitor-h.example.com/sitemap.xml",
+    "listSelector": "loc",
+    "linkSelector": "loc",
+    "fields": {"title": "og:title-or-title", "url": "loc"},
+    "sampleFingerprint": "competitor-h-fraud-main-20260829",
+    "sampleItemCount": 3,
+    "sampleUrls": [
+     "https://competitor-h.example.com/fraud/mock-mallcom",
+     "https://competitor-h.example.com/fraud/mockc5",
+     "https://competitor-h.example.com/fraud/mockd"
+    ],
+    "extractionRule": {
+     "includePath": "/fraud/",
+     "titleSource": "og:title-or-title",
+     "articleSelector": "main",
+     "samplesAttempted": 3,
+     "caseNamesExtracted": 3,
+     "observationsExtracted": 3,
+     "sampleCaseNames": ["MOCK-MALL.COM", "MOCKC5", "MOCKD"]
+    }
+   },
+   "enabled": true,
+   "onboardingStatus": "ready",
+   "recrawlDays": 1,
+   "maxSitemaps": 100,
+   "maxItemsPerRun": 500,
+   "seenLimit": 50000
+  },
+  {
+   "id": "competitori-fraud-sitemap-candidate",
+   "type": "sitemap",
+   "name": "법무법인 경쟁사I 사건 키워드 사이트맵",
+   "url": "https://competitor-i.example.com/sitemap.xml",
+   "includePath": "/fraud/",
+   "sourceType": "report",
+   "sourceFamily": "competitori-law",
+   "observedAdUrl": "https://competitor-i.example.com/fraud/mockqib",
+   "competitorKeywordSource": true,
+   "keywordOnly": true,
+   "recrawlDays": 1,
+   "maxSitemaps": 10,
+   "maxItemsPerRun": 500,
+   "seenLimit": 50000
+  },
+  {
+   "id": "competitorj-stock-fraud-sitemap",
+   "type": "sitemap",
+   "name": "법무법인 경쟁사J 주식사기 사건 사이트맵",
+   "url": "https://competitor-j.example.com/fraud-sitemap.php",
+   "includePath": "/fraud_detail",
+   "sitemapTitleStrategy": "query-param",
+   "sitemapTitleQueryParam": "name",
+   "sourceType": "report",
+   "sourceFamily": "competitorj-law",
+   "observedAdUrl": "https://competitor-j-ad.example.com/fraud",
+   "competitorKeywordSource": true,
+   "keywordOnly": true,
+   "fetchPageMetadata": false,
+   "fetchPageBodyFacts": false,
+   "allowInvalidTls": true,
+   "sitemapTimeoutSeconds": 60,
+   "recrawlDays": 1,
+   "maxSitemaps": 2,
+   "maxItemsPerRun": 20000,
+   "seenLimit": 50000,
+   "parserSpec": {
+    "schemaVersion": 1,
+    "adapter": "sitemap",
+    "entryUrl": "https://competitor-j.example.com/fraud-sitemap.php",
+    "listSelector": "loc",
+    "linkSelector": "loc",
+    "fields": {"title": "query:name", "url": "loc"},
+    "sampleFingerprint": "competitorj-stock-fraud-query-name-20260830",
+    "sampleItemCount": 3,
+    "sampleUrls": [
+     "https://competitor-j-ad.example.com/fraud_detail?slug=mockasset&name=가상에셋A%20사칭%20사기",
+     "https://competitor-j-ad.example.com/fraud_detail?slug=mockbitx&name=MockBitX%20사칭%20사기",
+     "https://competitor-j-ad.example.com/fraud_detail?slug=mockappb&name=MOCKAPPB%20사칭%20사기"
+    ]
+   },
+   "enabled": true,
+   "onboardingStatus": "ready"
+  },
+  {
+   "id": "competitord-fraud-sitemap-candidate",
+   "type": "sitemap",
+   "name": "법무법인 경쟁사D 사건 키워드 사이트맵",
+   "url": "https://competitor-d-3.example.com/sitemap.xml",
+   "includePath": "/fraud/",
+   "sourceType": "report",
+   "sourceFamily": "competitord-law",
+   "observedAdUrl": "https://competitor-d-3.example.com/fraud/MOCKQIB",
+   "observedAdDomains": ["competitor-d-4.example.com"],
+   "competitorKeywordSource": true,
+   "keywordOnly": true,
+   "recrawlDays": 1,
+   "maxSitemaps": 10,
+   "maxItemsPerRun": 500,
+   "seenLimit": 50000
+  }
+ ]
+}

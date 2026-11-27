@@ -1,0 +1,9 @@
+[Unit]
+Description=Enforce Sampleone Naver ad weekday business hours
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/lawfirm-ads/current
+ExecStart=/usr/bin/docker compose -f deploy/a1/docker-compose.yml --profile scheduled run --rm daily ./node_modules/.bin/tsx scripts/engine/enforce-sampleone-ad-hours.ts --firm 289283342
+TimeoutStartSec=30m

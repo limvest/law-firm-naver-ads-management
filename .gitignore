@@ -1,0 +1,37 @@
+node_modules/
+.next/
+.env*.local
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+data/keyword-inbox/agent.log
+data/keyword-inbox/fast-agent.log
+data/keyword-inbox/click-collection.log
+data/keyword-inbox/click-*.ndjson
+data/keyword-inbox/click-*-facts.json
+data/keyword-inbox/click-*-extracted.json
+data/harvest-health.json
+data/harvest-health.json.lock
+data/.harvest-health.json.*.tmp
+data/dashboard.html
+.env*
+# 디자인 소스 대용량 (재생성 가능 렌더·워킹파일 — 정본은 로컬/외부 백업)
+assets/previz/
+assets/styleframes/*
+!assets/styleframes/hf_act0_v1.png
+!assets/styleframes/hf_s3_seed.png
+!assets/styleframes/hf_s4_v4.png
+.DS_Store
+__pycache__/
+.playwright-mcp/
+data/keyword-inbox/backfill-work/
+
+# 로컬 생성 산출물·검수 렌더·일회성 수집 원본
+output/
+reports/
+tmp/
+data/keyword-inbox/*.ndjson
+data/keyword-inbox/*-facts.json
+data/keyword-inbox/*-collection-manifest.json
+data/keyword-inbox/*-checkpoint-candidate.json
+data/keyword-inbox/source-discovery*.log

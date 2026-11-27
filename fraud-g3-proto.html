@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>fraud v2 — G3 스크럽 프로토 (ACT 0)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230C0E12'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23D4A843'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --bg-deep:#0C0E12; --bg-raised:#14171E; --ink:#EAE6DD; --ink-dim:#8B8F98;
+    --crimson:#E5484D; --gold:#D4A843;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  ::selection{background:var(--gold);color:var(--bg-deep)}
+  html{scrollbar-width:thin}
+  body{background:var(--bg-deep);color:var(--ink);font-family:'Pretendard',sans-serif;word-break:keep-all}
+
+  /* ── ACT 0: 250vh 스크럽 구간 ── */
+  #act0{height:250vh;position:relative}
+  #stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+  #seq{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+  /* 텍스트 보호 그라디언트 (좌하) */
+  #shade{position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(74deg,rgba(12,14,18,.85) 0%,rgba(12,14,18,.42) 36%,rgba(12,14,18,0) 60%)}
+
+  /* ── 크롬 ── */
+  #urgent{position:fixed;top:24px;right:24px;z-index:40;display:inline-flex;align-items:center;gap:8px;
+    padding:10px 18px;border-radius:999px;border:1px solid rgba(229,72,77,.55);
+    font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;
+    background:rgba(12,14,18,.35);backdrop-filter:blur(6px)}
+  #urgent .dot{width:6px;height:6px;border-radius:50%;background:var(--crimson)}
+  #label{position:fixed;top:30px;left:28px;z-index:40;font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;letter-spacing:.08em;color:var(--ink-dim);text-transform:uppercase}
+  #label b{color:var(--gold);font-weight:500}
+  #progress{position:fixed;top:0;right:0;width:2px;height:0%;background:rgba(212,168,67,.9);z-index:41}
+  #scrollcue{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:40;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;
+    color:var(--ink-dim);text-transform:uppercase;transition:opacity .3s}
+
+  /* ── 카피 오버레이 ── */
+  #copy{position:absolute;left:6.6vw;bottom:12vh;z-index:30;max-width:80vw}
+  #c0h{font-family:'Noto Serif KR',serif;font-weight:900;color:var(--ink);
+    font-size:clamp(38px,8.2vw,118px);line-height:1.02;letter-spacing:-0.03em;
+    transform-origin:left bottom;will-change:transform,opacity}
+  #c0h .ln{display:block;white-space:nowrap}
+  #qs{margin-top:3.2vh;display:flex;flex-direction:column;gap:1.6vh}
+  .q{font-family:'IBM Plex Mono',monospace;font-size:clamp(12px,1.15vw,16px);
+     color:var(--ink-dim);display:none;align-items:baseline;gap:10px}
+  .q .tick{width:2px;align-self:stretch;background:var(--gold);transform:scaleY(0);transform-origin:top}
+  .q.checked .tick{transform:scaleY(1)}
+  .q .txt{white-space:pre-wrap}
+  .q .caret{display:inline-block;width:8px;height:15px;background:var(--crimson);vertical-align:-2px;margin-left:2px}
+  .q.done .caret{opacity:0}
+  #cx{display:none;font-family:'Noto Serif KR',serif;font-weight:900;color:var(--ink);
+    font-size:clamp(30px,5.4vw,76px);line-height:1.06;letter-spacing:-0.03em}
+  #cx .ln{display:block;white-space:nowrap}
+  #cxs{display:none;margin-top:2.2vh;font-size:clamp(14px,1.3vw,18px);line-height:1.7;color:var(--ink-dim);max-width:34ch}
+
+  /* 모바일 하단 바 */
+  #mbar{position:fixed;left:0;right:0;bottom:0;height:60px;display:none;z-index:50;
+    border-top:1px solid rgba(139,143,152,.25);background:rgba(12,14,18,.88);backdrop-filter:blur(8px)}
+  #mbar a{flex:1;display:flex;align-items:center;justify-content:center;
+    font-size:14.5px;font-weight:700;color:var(--ink);text-decoration:none}
+  #mbar a.tel{border-right:1px solid rgba(139,143,152,.25)}
+  #mbar a.form{color:var(--bg-deep);background:var(--gold)}
+  @media (max-width:768px){
+    #mbar{display:flex}
+    #urgent{top:12px;right:12px;padding:8px 13px;font-size:12px}
+    #label{top:17px;left:16px;font-size:10px}
+    #copy{left:20px;bottom:96px;max-width:calc(100vw - 40px)}
+  }
+
+  /* G3 판정용 디버그 HUD (?debug=1) */
+  #hud{position:fixed;left:16px;bottom:16px;z-index:60;display:none;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);
+    background:rgba(12,14,18,.8);padding:8px 10px;border:1px solid rgba(212,168,67,.4)}
+
+  /* ACT 0 이후 확인용 더미 구간 (G3 범위 밖) */
+  #after{height:120vh;display:flex;align-items:center;justify-content:center;
+    background:var(--bg-raised);color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em}
+
+  /* reduced-motion 폴백 */
+  @media (prefers-reduced-motion: reduce){
+    #act0{height:auto}
+    #stage{position:static;height:auto;min-height:100svh}
+    .q{display:flex!important}.q .txt{white-space:normal}
+    #cx,#cxs{display:block!important}
+    #c0h{transform:none!important;opacity:1!important}
+  }
+</style>
+</head>
+<body>
+
+<span id="label"><b>00</b> — QUESTION · G3 PROTO</span>
+<a id="urgent" href="tel:000-0000-0000"><span class="dot"></span>지금 급하신가요? 바로 전화 상담 →</a>
+<div id="progress"></div>
+<span id="scrollcue">아래로 스크롤</span>
+<div id="hud"></div>
+
+<section id="act0">
+  <div id="stage">
+    <canvas id="seq"></canvas>
+    <div id="shade"></div>
+    <div id="copy">
+      <h1 id="c0h"><span class="ln">투자·거래 후,</span><span class="ln">출금이 막혔습니까?</span></h1>
+      <div id="qs">
+        <div class="q" data-i="0"><span class="tick"></span><span class="txt"></span><span class="caret"></span></div>
+        <div class="q" data-i="1"><span class="tick"></span><span class="txt"></span><span class="caret"></span></div>
+        <div class="q" data-i="2"><span class="tick"></span><span class="txt"></span><span class="caret"></span></div>
+      </div>
+      <h2 id="cx"><span class="ln">하나라도 해당된다면,</span><span class="ln">지금 멈추셔야 합니다.</span></h2>
+      <p id="cxs">추가 입금을 멈추는 것이 첫 번째 대응입니다.<br>다음 대응은 저희가 안내합니다.</p>
+    </div>
+  </div>
+</section>
+
+<div id="mbar"><a class="tel" href="tel:000-0000-0000">전화 상담</a><a class="form" href="#">1분 진단</a></div>
+<section id="after">— ACT 0 종료 · TRANSITION 구간(G4 범위) —</section>
+
+<script>
+(() => {
+  const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TOTAL = window.SEQ_TOTAL || 150;               // 프레임 수 (빌드 시 치환)
+  const MOBILE = matchMedia('(max-width:768px)').matches;
+  const DIR = MOBILE ? 'assets/seq/act0/m' : 'assets/seq/act0/d';
+  const pad = n => String(n + 1).padStart(3, '0');
+  const src = i => `${DIR}/f_${pad(i)}.webp`;
+
+  const canvas = document.getElementById('seq');
+  const ctx = canvas.getContext('2d');
+  const frames = new Array(TOTAL).fill(null);
+  let current = -1, pending = -1;
+
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = innerWidth * dpr;
+    canvas.height = innerHeight * dpr;
+    if (current >= 0 && frames[current]) draw(current, true);
+  }
+  addEventListener('resize', resize);
+
+  function draw(i, force) {
+    if (!frames[i] || (i === current && !force)) return;
+    current = i;
+    const img = frames[i];
+    const cw = canvas.width, ch = canvas.height;
+    const s = Math.max(cw / img.width, ch / img.height);   // cover
+    const w = img.width * s, h = img.height * s;
+    ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+  }
+
+  function load(i, cb) {
+    if (frames[i]) { cb && cb(); return; }
+    const img = new Image();
+    img.onload = () => { frames[i] = img; cb && cb(); if (pending === i) { draw(i); pending = -1; } };
+    img.src = src(i);
+  }
+
+  // 첫 프레임 즉시 → 성긴 키프레임 → 전체 순차 (LCP 우선, §5)
+  load(0, () => { resize(); draw(0, true);
+    const coarse = []; for (let i = 0; i < TOTAL; i += 10) coarse.push(i);
+    let ci = 0;
+    (function nextCoarse(){ if (ci < coarse.length) load(coarse[ci++], nextCoarse);
+      else { let fi = 0; (function nextFine(){ while (fi < TOTAL && frames[fi]) fi++;
+        if (fi < TOTAL) load(fi, nextFine); })(); } })();
+  });
+
+  function show(i) {                                   // 미로드 시 최근접 로드 프레임 표시
+    if (frames[i]) { draw(i); return; }
+    pending = i; load(i);
+    for (let d = 1; d < TOTAL; d++) {
+      if (frames[i - d]) { draw(i - d); break; }
+      if (frames[i + d]) { draw(i + d); break; }
+    }
+  }
+
+  // ── 카피 (v2.1 확정본 — 카피 문서 ID 1:1) ──
+  const QT = [
+    'Q1. 출금하려면 세금이나 수수료를 먼저 내라고 합니까?',
+    'Q2. 잔고는 보이는데 출금 버튼만 눌리지 않습니까?',
+    'Q3. "지금이 마지막 기회"라며 추가 입금을 재촉받고 있습니까?'
+  ];
+  const qs = [...document.querySelectorAll('.q')];
+  const c0h = document.getElementById('c0h');
+  const cx = document.getElementById('cx');
+  const cxs = document.getElementById('cxs');
+  const cue = document.getElementById('scrollcue');
+  const bar = document.getElementById('progress');
+
+  const clamp01 = v => Math.min(1, Math.max(0, v));
+  // 타이핑도 진행도에 1:1 — 역스크롤이면 글자가 되감긴다 (스크럽 원칙)
+  function typeInto(el, text, t) {
+    const n = Math.round(clamp01(t) * text.length);
+    const cur = el.querySelector('.txt');
+    if (cur.dataset.n != n) { cur.textContent = text.slice(0, n); cur.dataset.n = n; }
+  }
+
+  function applyCopy(p) {
+    // C0-H: 0~.10 정착 → .10~.16 상단 축소 고정
+    const sh = clamp01((p - 0.10) / 0.06);
+    c0h.style.transform = `scale(${1 - 0.42 * sh}) translateY(${-2 * sh}vh)`;
+    c0h.style.opacity = p < 0.88 ? 1 : clamp01((0.94 - p) / 0.06);
+    // Q1 .10~.30 / Q2 .30~.50 / Q3 .50~.70 (등장 = 타이핑 0→1, 완료 시 체크)
+    const spans = [[0.10, 0.30], [0.30, 0.50], [0.50, 0.70]];
+    spans.forEach(([a, b], i) => {
+      const q = qs[i], t = (p - a) / (b - a - 0.02);
+      if (p >= a) { q.style.display = 'flex'; typeInto(q, QT[i], t); }
+      else { q.style.display = 'none'; q.querySelector('.txt').dataset.n = -1; }
+      q.classList.toggle('done', t >= 1);
+      q.classList.toggle('checked', t >= 1);
+      q.style.opacity = p < 0.88 ? 1 : clamp01((0.94 - p) / 0.06);
+    });
+    // C0-X .90~ 라인 마스크 대신 페이드+y (proto 간이) / C0-XS 반 박자 뒤 .94~
+    const tx = clamp01((p - 0.90) / 0.05), ts = clamp01((p - 0.94) / 0.05);
+    cx.style.display = tx > 0 ? 'block' : 'none';
+    cx.style.opacity = tx; cx.style.transform = `translateY(${(1 - tx) * 24}px)`;
+    cxs.style.display = ts > 0 ? 'block' : 'none';
+    cxs.style.opacity = ts; cxs.style.transform = `translateY(${(1 - ts) * 18}px)`;
+    cue.style.opacity = p < 0.04 ? 1 : 0;
+    bar.style.height = `${(p * 100).toFixed(2)}%`;
+  }
+
+  // ── 스크럽 코어: scroll → progress → frame + copy (이징 없음 1:1, §1-5 ease-scrub) ──
+  const act0 = document.getElementById('act0');
+  let lastP = -1;
+  function update() {
+    const span = act0.offsetHeight - innerHeight;
+    const p = clamp01((scrollY - act0.offsetTop) / span);
+    if (p === lastP) return;
+    lastP = p;
+    show(Math.round(p * (TOTAL - 1)));
+    applyCopy(p);
+  }
+
+  if (!REDUCED) {
+    addEventListener('scroll', update, { passive: true });
+    update();
+  } else {
+    load(0, () => { resize(); draw(0, true); });
+    qs.forEach((q, i) => { q.querySelector('.txt').textContent = QT[i]; q.classList.add('done'); });
+  }
+
+  // ── 판정 HUD (?debug=1): fps·frame·progress ──
+  if (location.search.includes('debug=1')) {
+    const hud = document.getElementById('hud');
+    hud.style.display = 'block';
+    let n = 0, t0 = performance.now(), fps = 0;
+    (function loop(t) {
+      n++;
+      if (t - t0 >= 500) { fps = Math.round(n * 1000 / (t - t0)); n = 0; t0 = t; }
+      hud.textContent = `fps ${fps} · frame ${current + 1}/${TOTAL} · p ${lastP < 0 ? 0 : lastP.toFixed(3)}`;
+      requestAnimationFrame(loop);
+    })(performance.now());
+    window.__g3 = { get frame(){ return current; }, get p(){ return lastP; }, get loaded(){ return frames.filter(Boolean).length; } };
+  }
+})();
+</script>
+</body>
+</html>

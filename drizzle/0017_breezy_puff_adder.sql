@@ -1,0 +1,2 @@
+ALTER TABLE "case_evidence_snapshots" ADD COLUMN "fingerprint" text NOT NULL;--> statement-breakpoint
+ALTER TABLE "case_evidence_snapshots" ADD CONSTRAINT "case_evidence_case_fingerprint" UNIQUE("case_entity_id","fingerprint");

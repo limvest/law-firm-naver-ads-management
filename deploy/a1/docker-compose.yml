@@ -1,0 +1,98 @@
+name: lawfirm-ads-agent
+
+x-agent: &agent
+  image: lawfirm-ads-agent:current
+  build:
+    context: ../..
+    dockerfile: deploy/a1/Dockerfile.agent
+  env_file:
+    - /etc/lawfirm-ads/agent.env
+  environment:
+    TZ: Asia/Seoul
+    AGENT_AUTO_DEPLOY: "0"
+    AGENT_GIT_COMMIT: "0"
+    LLM_EXTRACT_ENABLED: "0"
+    PIPELINE_LOCK_DIR: /var/lock/lawfirm-ads/pipeline.lock
+  volumes:
+    - /var/lib/lawfirm-ads/data:/app/data
+    - /var/lib/lawfirm-ads/lock:/var/lock/lawfirm-ads
+  tmpfs:
+    - /tmp:size=512m,mode=1777
+  init: true
+  stop_grace_period: 45s
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    env_file:
+      - /etc/lawfirm-ads/postgres.env
+    environment:
+      POSTGRES_USER: lawfirm_ads
+      POSTGRES_DB: lawfirm_ads
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lawfirm_ads -d lawfirm_ads"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+    shm_size: 256mb
+    networks:
+      default:
+        aliases:
+          - lawfirm-postgres
+
+  click-listener:
+    <<: *agent
+    command: ["zsh", "scripts/agent/click-collection-daemon.sh"]
+    restart: unless-stopped
+
+  daily:
+    <<: *agent
+    command: ["zsh", "scripts/agent/daily-supervisor.sh"]
+    restart: "no"
+    profiles: ["scheduled"]
+
+  web:
+    image: lawfirm-ads-web:current
+    build:
+      context: ../..
+      dockerfile: deploy/a1/Dockerfile.web
+    env_file:
+      - /etc/lawfirm-ads/agent.env
+    environment:
+      TZ: Asia/Seoul
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+      DATABASE_POOL_MAX: "10"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3100:3000"
+    networks:
+      default: {}
+      internal-net:
+        aliases:
+          - lawfirm-ads-web
+    restart: unless-stopped
+    init: true
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
+        compress: "true"
+
+volumes:
+  postgres-data:
+
+networks:
+  internal-net:
+    external: true
+    name: internal

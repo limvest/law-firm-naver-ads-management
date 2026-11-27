@@ -1,0 +1,10 @@
+[Unit]
+Description=Sync Naver SearchAd performance before daily Telegram report
+
+[Timer]
+OnCalendar=*-*-* 08:40:00 Asia/Seoul
+Persistent=true
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

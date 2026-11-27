@@ -1,0 +1,1 @@
+ALTER TABLE "firms" ADD COLUMN "site_template" text DEFAULT 'response-room' NOT NULL;

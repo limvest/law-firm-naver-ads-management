@@ -1,0 +1,53 @@
+{
+  "name": "lawfirm-ads",
+  "private": true,
+  "scripts": {
+    "theme:sampleone-fintech": "node scripts/build-sampleone-fintech-mirror.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "pages:refresh": "tsx scripts/agent/generate-scam-pages.ts",
+    "schema:core:check": "tsx scripts/agent/assert-core-schema.ts",
+    "agent:collect": "zsh scripts/agent/daily-supervisor.sh",
+    "agent:discover-sources": "tsx scripts/agent/discover-naver-sources.ts",
+    "agent:discover-cycle": "zsh scripts/agent/discovery-supervisor.sh",
+    "agent:discover-public": "tsx scripts/agent/run-naver-public-discovery.ts",
+    "agent:source-family": "tsx scripts/agent/reconcile-source-families.ts",
+    "agent:parser": "tsx scripts/agent/analyze-pending-sources.ts",
+    "agent:review": "tsx scripts/agent/review-operational-db.ts --force",
+    "workers:collection": "tsx scripts/agent/run-collection-workers.ts",
+    "workers:click": "node --import tsx scripts/agent/run-click-collection.ts",
+    "firm:provision": "tsx scripts/engine/provision-firm.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.2",
+    "gsap": "^3.15.0",
+    "next": "^16.3.4",
+    "pg": "^8.23.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "three": "^0.185.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.4",
+    "@tailwindcss/postcss": "^4.3.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^26.1.0",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.5",
+    "@types/three": "^0.185.0",
+    "@vitejs/plugin-react": "^6.0.3",
+    "drizzle-kit": "^0.31.10",
+    "jsdom": "^29.1.1",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  }
+}

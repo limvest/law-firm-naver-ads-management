@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Lawfirm Ads collection every morning
+
+[Timer]
+OnCalendar=*-*-* 08:47:00 Asia/Seoul
+Persistent=true
+RandomizedDelaySec=5m
+Unit=lawfirm-ads-daily.service
+
+[Install]
+WantedBy=timers.target

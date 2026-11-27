@@ -1,0 +1,11 @@
+[Unit]
+Description=Back up the Lawfirm Ads database every night
+
+[Timer]
+OnCalendar=*-*-* 03:20:00 Asia/Seoul
+Persistent=true
+RandomizedDelaySec=10m
+Unit=lawfirm-ads-db-backup.service
+
+[Install]
+WantedBy=timers.target

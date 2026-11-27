@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+container="${LAWFIRM_WEB_CONTAINER:-lawfirm-ads-agent-web-1}"
+log_dir="${LAWFIRM_SECURITY_LOG_DIR:-/var/log/lawfirm-security}"
+event_log="$log_dir/events.jsonl"
+lock_file="${LAWFIRM_SECURITY_LOCK_FILE:-/run/lock/lawfirm-security-collector.lock}"
+
+install -d -m 0700 "$log_dir"
+touch "$event_log"
+chmod 0600 "$event_log"
+
+exec 9>"$lock_file"
+flock -n 9 || exit 0
+
+docker logs --since 2s --follow "$container" 2>&1 |
+while IFS= read -r line; do
+  event=$(printf '%s\n' "$line" | jq -c 'select(.schema_version == 1 and (.event_id | type == "string"))' 2>/dev/null) || continue
+  [[ -n "$event" ]] || continue
+  printf '%s\n' "$event" >> "$event_log"
+done

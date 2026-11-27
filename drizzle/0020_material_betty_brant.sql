@@ -1,0 +1,2 @@
+ALTER TABLE "lead_status_history" ADD COLUMN "idempotency_key" text NOT NULL;--> statement-breakpoint
+ALTER TABLE "lead_status_history" ADD CONSTRAINT "lead_status_history_idempotency_key" UNIQUE("idempotency_key");

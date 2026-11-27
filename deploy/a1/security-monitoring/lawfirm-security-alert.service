@@ -1,0 +1,14 @@
+[Unit]
+Description=Lawfirm Ads security threshold alert
+After=network-online.target lawfirm-security-log-collector.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/lawfirm-security-alert
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadOnlyPaths=/etc/lawfirm-ads/agent.env
+ReadWritePaths=/var/log/lawfirm-security /var/lib/lawfirm-security

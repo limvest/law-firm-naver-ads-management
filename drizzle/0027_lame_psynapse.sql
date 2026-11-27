@@ -1,0 +1,1 @@
+ALTER TABLE "firm_collection_runs" ALTER COLUMN "billable_units" SET DEFAULT 0;

@@ -1,0 +1,14 @@
+[Unit]
+Description=Lawfirm Ads daily collection agent
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/lawfirm-ads/current
+ExecStart=/usr/bin/docker compose -f deploy/a1/docker-compose.yml --profile scheduled run --rm daily
+TimeoutStartSec=3h
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=6

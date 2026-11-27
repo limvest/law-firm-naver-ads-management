@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>개인회생·파산 | 법무법인 샘플투 — 다시, 아침이 옵니다</title>
+<meta name="description" content="접수 즉시 추심·독촉을 멈추는 법적 절차. 대한변협 도산법 전문변호사가 비밀리에 새 출발을 돕습니다. 샘플지역 법무법인 샘플투.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --night:#0a1024; --dawn:#f8f1e4; --amber:#e8a25c; --amber-d:#c77f35;
+  --ink:#2a2118; --w:#f2efe6;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,sans-serif;color:var(--w);overflow-x:hidden;line-height:1.65;background:var(--night)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--amber);color:#1a1027}
+
+/* fixed sky that warms as you scroll */
+#sky{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,#070c1d 0%,#0d1530 100%)}
+#stars{position:fixed;inset:0;z-index:-1;pointer-events:none}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(20px,5vw,60px);transition:.4s}
+nav.scrolled{background:rgba(10,14,30,.72);backdrop-filter:blur(14px)}
+nav.light-mode.scrolled{background:rgba(250,244,232,.82)}
+.nav-logo img{height:28px}
+nav .back{font-size:14px;opacity:.85;display:flex;align-items:center;gap:8px;transition:.3s}
+nav .back:hover{opacity:1}
+.nav-right{display:flex;gap:12px;align-items:center}
+.nav-call{background:linear-gradient(135deg,#f0b06a,#d07f2e);color:#241505;font-weight:700;padding:10px 20px;border-radius:100px;font-size:14px;box-shadow:0 6px 24px rgba(224,146,60,.35)}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  padding:110px 24px 80px;position:relative}
+.hero-moon{width:110px;height:110px;border-radius:50%;margin-bottom:44px;
+  background:radial-gradient(circle at 38% 34%,#fdf6e8,#e9d9ae 55%,#c9a55e);
+  box-shadow:0 0 70px 18px rgba(233,205,148,.35);position:relative}
+.hero-eyebrow{font-size:13px;letter-spacing:.3em;color:#c8b28a;margin-bottom:22px}
+h1{font-size:clamp(30px,5.6vw,64px);font-weight:800;line-height:1.32;letter-spacing:-.02em}
+h1 .am{color:#f2c188}
+.hero-sub{margin-top:24px;font-size:clamp(15px,1.8vw,19px);color:#b7bdd1;font-weight:300;max-width:560px}
+.hero-note{margin-top:34px;display:inline-flex;gap:10px;align-items:center;font-size:13.5px;color:#d9c9a6;
+  border:1px solid rgba(233,205,148,.3);padding:10px 22px;border-radius:100px;background:rgba(233,205,148,.06)}
+.hero-note b{color:#f2c188}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 34px;border-radius:100px;font-size:15px;font-weight:700;transition:.35s}
+.btn-amber{background:linear-gradient(135deg,#f0b06a,#d07f2e);color:#241505;box-shadow:0 10px 34px rgba(224,146,60,.35)}
+.btn-amber:hover{transform:translateY(-3px);box-shadow:0 16px 44px rgba(224,146,60,.5)}
+.btn-line{border:1.5px solid rgba(255,255,255,.35)}
+.btn-line:hover{border-color:#f2c188;color:#f2c188}
+.hero-btns{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;color:#8b93ad}
+.scroll-hint::after{content:"";display:block;width:1px;height:40px;background:linear-gradient(#e8a25c,transparent);margin:10px auto 0}
+
+/* ---------- shared ---------- */
+section{padding:clamp(80px,10vw,140px) clamp(20px,6vw,80px);position:relative}
+.wrap{max-width:1080px;margin:0 auto}
+.label{font-size:12px;letter-spacing:.32em;margin-bottom:16px;color:#e2b071;display:flex;align-items:center;gap:12px}
+.label::before{content:"";width:32px;height:1px;background:currentColor}
+h2{font-size:clamp(26px,3.8vw,46px);font-weight:800;line-height:1.35;letter-spacing:-.02em}
+.desc{margin-top:16px;max-width:600px;font-weight:300;font-size:clamp(14px,1.6vw,17px);opacity:.75}
+.rv{opacity:0;transform:translateY(40px)}
+
+/* ---------- empathy checklist (night) ---------- */
+.chk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:48px}
+.chk{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);
+  border-radius:16px;padding:22px 24px;font-size:15.5px;transition:.3s}
+.chk:hover{background:rgba(233,205,148,.08);border-color:rgba(233,205,148,.35)}
+.chk svg{flex:none;margin-top:3px}
+.chk-close{margin-top:44px;text-align:center;font-size:clamp(17px,2.2vw,22px);font-weight:600;color:#f2c188}
+
+/* ---------- stop section ---------- */
+.stop-card{margin-top:52px;border-radius:28px;padding:clamp(34px,5vw,64px);text-align:center;
+  background:linear-gradient(150deg,rgba(240,176,106,.14),rgba(240,176,106,.04));border:1px solid rgba(240,176,106,.35);position:relative;overflow:hidden}
+.stop-big{font-size:clamp(26px,4.4vw,48px);font-weight:800;line-height:1.35}
+.stop-big .am{color:#f2c188}
+.stop-sub{margin-top:18px;opacity:.8;font-weight:300;max-width:620px;margin-inline:auto}
+.ring{position:absolute;border:1px solid rgba(240,176,106,.25);border-radius:50%;pointer-events:none}
+
+/* ---------- quiz ---------- */
+.quiz-sec .wrap{max-width:820px}
+.quiz{margin-top:48px;background:rgba(10,14,30,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);
+  border-radius:26px;padding:clamp(28px,4vw,52px);min-height:330px;position:relative}
+body.day .quiz{background:rgba(255,252,245,.75);border-color:rgba(120,90,40,.18)}
+.q-step{font-size:12px;letter-spacing:.26em;color:#e2b071;margin-bottom:18px}
+.q-text{font-size:clamp(19px,2.6vw,26px);font-weight:700;line-height:1.5}
+.q-opts{margin-top:30px;display:grid;gap:12px}
+.q-btn{text-align:left;padding:18px 24px;border-radius:14px;border:1px solid rgba(150,150,160,.35);
+  background:transparent;color:inherit;font-size:15.5px;font-family:inherit;cursor:pointer;transition:.25s}
+.q-btn:hover{border-color:#e2a35c;background:rgba(232,162,92,.1);transform:translateX(4px)}
+.q-result-badge{display:inline-block;font-size:12px;letter-spacing:.2em;border:1px solid #d07f2e;color:#c77f35;
+  border-radius:100px;padding:6px 16px;margin-bottom:18px}
+.q-result-t{font-size:clamp(22px,3vw,30px);font-weight:800;line-height:1.4}
+.q-result-d{margin-top:14px;opacity:.8;font-size:15.5px}
+.q-restart{margin-top:26px;background:none;border:none;color:inherit;opacity:.6;cursor:pointer;font-size:13.5px;text-decoration:underline;font-family:inherit}
+
+/* ---------- timeline (dawn) ---------- */
+.tl{margin-top:60px;position:relative;padding-left:34px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(#e8a25c,#c77f35)}
+.tl-item{position:relative;padding:0 0 44px 26px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:"";position:absolute;left:-33px;top:6px;width:18px;height:18px;border-radius:50%;
+  background:var(--dawn);border:3px solid #d07f2e;box-shadow:0 0 0 5px rgba(224,146,60,.18)}
+.tl-week{font-size:12.5px;letter-spacing:.14em;color:#b3742a;font-weight:700}
+.tl-t{font-size:clamp(18px,2.2vw,22px);font-weight:800;margin:6px 0 8px}
+.tl-d{font-size:15px;opacity:.75;max-width:560px}
+.tl-hl{display:inline-block;margin-top:10px;background:rgba(224,146,60,.15);border:1px solid rgba(199,127,53,.4);
+  color:#f2c188;font-size:13px;font-weight:700;padding:6px 14px;border-radius:100px;transition:color .4s}
+body.day .tl-hl{color:#8a5217}
+
+/* ---------- trust ---------- */
+.trust-grid{display:grid;grid-template-columns:300px 1fr;gap:clamp(30px,5vw,64px);align-items:center;margin-top:56px}
+.trust-photo{border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(90,55,10,.25)}
+.trust-photo img{width:100%}
+.t-name{font-size:24px;font-weight:800}
+.t-role{color:#b3742a;font-weight:600;margin-top:2px;font-size:14.5px}
+.t-creds{margin-top:20px;display:grid;gap:10px}
+.t-cred{display:flex;gap:12px;font-size:15px;align-items:flex-start}
+.t-cred svg{flex:none;margin-top:4px}
+.privacy-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:56px}
+.pv{background:rgba(255,255,255,.5);border:1px solid rgba(120,90,40,.16);border-radius:18px;padding:28px 26px}
+body:not(.day) .pv{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
+.pv-t{font-weight:800;font-size:17px;margin:12px 0 8px}
+.pv-d{font-size:14px;opacity:.72}
+
+/* ---------- final cta ---------- */
+.final{text-align:center}
+.final h2{font-size:clamp(30px,5vw,56px)}
+.final .desc{margin-inline:auto}
+.sun{width:130px;height:130px;border-radius:50%;margin:0 auto 40px;
+  background:radial-gradient(circle at 40% 35%,#fff3dc,#f7c877 55%,#e8963f);
+  box-shadow:0 0 90px 30px rgba(240,170,80,.45)}
+.final-phone{display:block;font-size:clamp(32px,5vw,54px);font-weight:800;color:#b3742a;margin:30px 0 8px;letter-spacing:.01em}
+footer{padding:40px 24px;text-align:center;font-size:13px;opacity:.55}
+
+@media(max-width:860px){
+  .chk-grid{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr;justify-items:center;text-align:left}
+  .trust-photo{max-width:280px}
+  .privacy-row{grid-template-columns:1fr}
+  nav .back span{display:none}
+}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div id="sky"></div>
+<canvas id="stars"></canvas>
+
+<nav id="nav">
+  <div class="nav-right">
+    <a class="back" href="index.html">← <span>법무법인 샘플투</span></a>
+  </div>
+  <a class="nav-logo" href="index.html" style="position:absolute;left:50%;transform:translateX(-50%)"><img src="assets/logo-white.png" alt="법무법인 샘플투" id="navLogo"></a>
+  <a class="nav-call" href="tel:031-000-0000">☎ 익명 상담</a>
+</nav>
+
+<header class="hero">
+  <div class="hero-moon" id="moon"></div>
+  <div class="hero-eyebrow">개인회생 · 개인파산</div>
+  <h1>빚 때문에 잠 못 드는 밤,<br><span class="am">오늘로 끝내세요</span></h1>
+  <p class="hero-sub">갚아도 갚아도 줄지 않는 빚, 하루 수십 통의 독촉 전화.<br>
+  당신의 잘못이 아닙니다. 법이 정한 <b>‘다시 시작할 권리’</b>가 있습니다.</p>
+  <div class="hero-note"><b>비밀 보장</b> · 가족과 회사에 알려지지 않게 진행하는 방법을 함께 설계합니다</div>
+  <div class="hero-btns">
+    <a class="btn btn-amber" href="#quiz">1분 자가진단 시작</a>
+    <a class="btn btn-line" href="tel:031-000-0000">지금 통화하기</a>
+  </div>
+  <div class="scroll-hint">아침으로 가는 길</div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="label rv">CHECK</div>
+    <h2 class="rv">혹시, 이런 밤을 보내고 계신가요?</h2>
+    <div class="chk-grid">
+      <div class="chk rv"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="#e8a25c" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#e8a25c" stroke-width="1.8" fill="none"/></svg>월급날이 되어도 이자를 갚고 나면 남는 게 없다</div>
+      <div class="chk rv"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="#e8a25c" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#e8a25c" stroke-width="1.8" fill="none"/></svg>모르는 번호로 오는 전화가 두렵다</div>
+      <div class="chk rv"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="#e8a25c" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#e8a25c" stroke-width="1.8" fill="none"/></svg>카드 돌려막기·대출로 대출을 갚고 있다</div>
+      <div class="chk rv"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="#e8a25c" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#e8a25c" stroke-width="1.8" fill="none"/></svg>가족이 알게 될까 봐 혼자 견디고 있다</div>
+      <div class="chk rv"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="#e8a25c" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#e8a25c" stroke-width="1.8" fill="none"/></svg>압류·통장 정지 통보를 받았다</div>
+      <div class="chk rv"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="#e8a25c" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#e8a25c" stroke-width="1.8" fill="none"/></svg>‘이 빚을 평생 못 갚겠다’는 생각이 든다</div>
+    </div>
+    <p class="chk-close rv">하나라도 해당된다면 — 이제 법이 당신을 지킬 차례입니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="label rv">FIRST RELIEF</div>
+    <h2 class="rv">가장 먼저, 독촉부터 멈춥니다</h2>
+    <p class="desc rv">개인회생·파산 절차에는 채권자의 추심을 법적으로 중단시키는 장치(중지·금지명령)가 있습니다. 샘플투은 신청과 동시에 이를 함께 준비합니다.</p>
+    <div class="stop-card rv">
+      <div class="ring" style="width:300px;height:300px;top:-140px;left:-90px"></div>
+      <div class="ring" style="width:200px;height:200px;bottom:-90px;right:-60px"></div>
+      <div class="stop-big">금지명령이 결정되면,<br>그 순간부터 <span class="am">독촉 전화도, 압류도 멈춥니다</span></div>
+      <p class="stop-sub">법원의 명령 이후 채권자는 전화·방문 추심, 급여·통장 압류 등 강제집행을 할 수 없습니다.
+      빠른 서류 준비가 곧 빠른 평온입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quiz-sec" id="quiz">
+  <div class="wrap">
+    <div class="label rv">SELF CHECK · 1분</div>
+    <h2 class="rv">나에게 맞는 제도는 무엇일까요?</h2>
+    <p class="desc rv">세 번의 선택이면 방향이 보입니다. 결과는 저장되지 않으며, 정확한 판단은 상담에서 확정합니다.</p>
+    <div class="quiz rv" id="quizBox"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="label rv">PROCESS</div>
+    <h2 class="rv">아침까지의 여정, 이렇게 진행됩니다</h2>
+    <div class="tl">
+      <div class="tl-item rv"><div class="tl-week">STEP 1 · 당일</div><div class="tl-t">비공개 상담 & 채무 분석</div><div class="tl-d">전화 한 통이면 시작됩니다. 채무 규모·소득·재산을 분석해 회생과 파산 중 유리한 길을 설계합니다.</div><div class="tl-hl">가명 상담 가능 · 비용 분납 안내</div></div>
+      <div class="tl-item rv"><div class="tl-week">STEP 2 · 1~4주</div><div class="tl-t">서류 준비 & 법원 신청</div><div class="tl-d">복잡한 서류는 전담팀이 함께 준비합니다. 의뢰인은 안내에 따라 몇 가지 자료만 준비하면 됩니다.</div></div>
+      <div class="tl-item rv"><div class="tl-week">STEP 3 · 신청 직후</div><div class="tl-t">중지·금지명령 — 독촉이 멈추는 순간</div><div class="tl-d">법원 결정으로 추심·압류가 중단됩니다. 많은 의뢰인이 “몇 년 만에 처음으로 푹 잤다”고 말하는 단계입니다.</div><div class="tl-hl">추심 중단</div></div>
+      <div class="tl-item rv"><div class="tl-week">STEP 4 · 개시결정</div><div class="tl-t">변제계획 인가 / 파산선고</div><div class="tl-d">회생은 소득에 맞춘 3년 변제계획으로, 파산은 면책 절차로 나아갑니다. 전 과정을 변호사가 직접 관리합니다.</div></div>
+      <div class="tl-item rv"><div class="tl-week">FINAL</div><div class="tl-t">면책 — 빚으로부터의 완전한 자유</div><div class="tl-d">남은 채무가 법적으로 사라집니다. 신용 회복 절차를 안내받으며 일상으로 복귀합니다.</div><div class="tl-hl">새 출발</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="label rv">WHY THE L</div>
+    <h2 class="rv">‘도산법 전문’ 인증 변호사가<br>처음부터 끝까지 직접</h2>
+    <div class="trust-grid">
+      <div class="trust-photo rv"><img src="assets/lawyer-lawyerb.jpg" alt="이이번 수석변호사"></div>
+      <div>
+        <div class="t-name rv">이이번 <span style="font-size:15px;font-weight:600;opacity:.7">수석변호사</span></div>
+        <div class="t-role rv">회생·파산 전문팀 총괄</div>
+        <div class="t-creds">
+          <div class="t-cred rv"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l2 4.2 4.6.5-3.4 3.1.9 4.5L8 11l-4.1 2.3.9-4.5L1.4 5.7 6 5.2 8 1z" fill="#d0902e"/></svg><b>대한변호사협회 도산법 전문변호사 인증</b></div>
+          <div class="t-cred rv"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l2 4.2 4.6.5-3.4 3.1.9 4.5L8 11l-4.1 2.3.9-4.5L1.4 5.7 6 5.2 8 1z" fill="#d0902e"/></svg>대한변호사협회 형사법 전문변호사 인증</div>
+          <div class="t-cred rv"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l2 4.2 4.6.5-3.4 3.1.9 4.5L8 11l-4.1 2.3.9-4.5L1.4 5.7 6 5.2 8 1z" fill="#d0902e"/></svg>사법시험 합격 · 사법연수원 수료 · 금융감독원 변호사 연수</div>
+          <div class="t-cred rv"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1l2 4.2 4.6.5-3.4 3.1.9 4.5L8 11l-4.1 2.3.9-4.5L1.4 5.7 6 5.2 8 1z" fill="#d0902e"/></svg>코로나19 소상공인·자영업자 SOS 현장지원단 변호사 활동</div>
+        </div>
+      </div>
+    </div>
+    <div class="privacy-row">
+      <div class="pv rv"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="#c77f35" stroke-width="1.6"/><path d="M8 10V7a4 4 0 118 0v3" stroke="#c77f35" stroke-width="1.6"/></svg>
+        <div class="pv-t">철저한 비밀 보장</div><div class="pv-d">가족·직장에 통지가 가지 않도록 사건 초기부터 송달·서류 수령 방식을 설계합니다.</div></div>
+      <div class="pv rv"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M5 8h14M7 21h10" stroke="#c77f35" stroke-width="1.6"/></svg>
+        <div class="pv-t">투명한 비용, 분납 가능</div><div class="pv-d">첫 상담에서 총 비용을 확정해 안내합니다. 상황에 맞는 분납 플랜을 제안합니다.</div></div>
+      <div class="pv rv"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#c77f35" stroke-width="1.6"/><path d="M12 7v5l3.5 2.5" stroke="#c77f35" stroke-width="1.6"/></svg>
+        <div class="pv-t">변호사 직접 수행</div><div class="pv-d">사무장이 아닌 도산법 전문 변호사가 상담부터 면책까지 직접 진행합니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <div class="sun rv" id="sun"></div>
+    <h2 class="rv">긴 밤의 끝에서,<br>다시 아침이 옵니다</h2>
+    <p class="desc rv" style="margin-top:20px">지금 이 페이지를 읽고 있다는 것— 이미 새 출발은 시작되었습니다.<br>법무법인 샘플투 회생·파산 전문팀이 일상으로의 복귀를 함께합니다.</p>
+    <a class="final-phone rv" href="tel:031-000-0000">031-000-0000</a>
+    <p class="rv" style="opacity:.65;font-size:14px">평일 09:00–18:00 · 야간/주말 예약 상담 · 카카오톡 채널 24시간 접수</p>
+    <div class="hero-btns rv" style="justify-content:center">
+      <a class="btn btn-amber" href="tel:031-000-0000">익명으로 전화 상담</a>
+      <a class="btn btn-line" style="border-color:rgba(120,90,40,.4);color:#8a5217" href="https://pf.kakao.com/_mock2" target="_blank" rel="noopener">카카오톡으로 조용히 문의</a>
+    </div>
+  </div>
+</section>
+
+<footer>법률사무소 샘플투 · 경기도 샘플시 샘플구 샘플로 1, 5층 (샘플빌딩) · 대표 김일번 — UI/UX Redesign Concept</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+
+/* ---------- stars canvas (fade out as dawn comes) ---------- */
+const cv=document.getElementById('stars'),cx=cv.getContext('2d');
+let stars=[],W,H;
+function initStars(){
+  W=cv.width=innerWidth*Math.min(devicePixelRatio,2);
+  H=cv.height=innerHeight*Math.min(devicePixelRatio,2);
+  cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';
+  const n=innerWidth<700?70:150;
+  stars=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.4,p:Math.random()*Math.PI*2,s:.5+Math.random()}));
+}
+initStars();addEventListener('resize',initStars);
+let dawnT=0; // 0 night → 1 day
+(function drawStars(){
+  requestAnimationFrame(drawStars);
+  cx.clearRect(0,0,W,H);
+  const alpha=1-dawnT;
+  if(alpha<=0.02)return;
+  const t=performance.now()/1000;
+  for(const s of stars){
+    const tw=.5+.5*Math.sin(t*s.s+s.p);
+    cx.beginPath();cx.arc(s.x,s.y,s.r,0,7);
+    cx.fillStyle=`rgba(232,220,190,${(0.25+0.6*tw)*alpha})`;cx.fill();
+  }
+})();
+
+/* ---------- quiz ---------- */
+const QUESTIONS=[
+ {q:"현재 일정한 소득(급여·사업소득)이 있으신가요?",opts:[
+   {t:"네, 매달 고정 수입이 있습니다",v:"income"},
+   {t:"수입이 불규칙하거나 거의 없습니다",v:"noincome"}]},
+ {q:"총 채무 규모는 어느 정도인가요?",opts:[
+   {t:"5천만 원 미만",v:"small"},{t:"5천만 원 ~ 3억 원",v:"mid"},{t:"3억 원 이상",v:"big"}]},
+ {q:"지키고 싶은 재산(주택·차량 등)이 있으신가요?",opts:[
+   {t:"네, 가능한 한 지키고 싶습니다",v:"asset"},
+   {t:"특별히 없습니다",v:"noasset"}]}
+];
+let qi=0,ans=[];
+const box=document.getElementById('quizBox');
+function renderQ(){
+  const q=QUESTIONS[qi];
+  box.innerHTML=`<div class="q-step">QUESTION ${qi+1} / ${QUESTIONS.length}</div>
+    <div class="q-text">${q.q}</div>
+    <div class="q-opts">${q.opts.map((o,i)=>`<button class="q-btn" data-v="${o.v}">${o.t}</button>`).join('')}</div>`;
+  gsap&&gsap.from(box.children,{y:20,opacity:0,stagger:.08,duration:.5,ease:'power2.out'});
+  box.querySelectorAll('.q-btn').forEach(b=>b.addEventListener('click',()=>{
+    ans.push(b.dataset.v);qi++;
+    qi<QUESTIONS.length?renderQ():renderR();
+  }));
+}
+function renderR(){
+  const rehab=ans.includes('income');
+  const title=rehab?"‘개인회생’이 유력해 보입니다":"‘개인파산·면책’ 검토가 필요해 보입니다";
+  const desc=rehab
+   ?"고정 수입이 있다면, 소득에 맞춘 3년 변제계획 후 남은 빚을 면책받는 개인회생이 유리할 수 있습니다. 재산을 지키면서 진행하는 방법도 함께 설계합니다."
+   :"수입이 어려운 상황이라면, 파산·면책을 통해 채무 전부에서 벗어나는 길을 검토합니다. 면책 후 신용 회복 절차까지 안내해 드립니다.";
+  box.innerHTML=`<div class="q-result-badge">진단 결과</div>
+    <div class="q-result-t">${title}</div>
+    <p class="q-result-d">${desc}<br><br><b>다만, 최종 판단은 채무 구성·재산 내역에 따라 달라집니다.</b> 지금 전화 주시면 도산법 전문변호사가 5분 안에 방향을 확인해 드립니다.</p>
+    <div class="hero-btns" style="justify-content:flex-start;margin-top:30px">
+      <a class="btn btn-amber" href="tel:031-000-0000">전문변호사와 5분 통화</a>
+    </div>
+    <button class="q-restart">다시 진단하기</button>`;
+  gsap&&gsap.from(box.children,{y:20,opacity:0,stagger:.08,duration:.5});
+  box.querySelector('.q-restart').addEventListener('click',()=>{qi=0;ans=[];renderQ()});
+}
+renderQ();
+
+/* ---------- gsap: dawn scroll narrative ---------- */
+if(window.gsap){
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.rv').forEach(el=>{
+    gsap.to(el,{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+  });
+  gsap.from('.hero-moon',{scale:.6,opacity:0,duration:1.4,ease:'power3.out'});
+  gsap.from('.hero h1',{y:40,opacity:0,duration:1.1,delay:.25,ease:'power3.out'});
+  gsap.from('.hero-sub,.hero-note,.hero-btns',{y:26,opacity:0,duration:1,delay:.5,stagger:.14,ease:'power3.out'});
+  gsap.to('#moon',{y:-30,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+  /* sky: night → dawn, scrubbed across whole page */
+  const sky=document.getElementById('sky');
+  const phases=[
+    'linear-gradient(180deg,#070c1d 0%,#0d1530 100%)',
+    'linear-gradient(180deg,#0d1631 0%,#232b52 100%)',
+    'linear-gradient(180deg,#2b2f56 0%,#5c4a72 60%,#8a5d62 100%)',
+    'linear-gradient(180deg,#6f5a80 0%,#c88a68 70%,#e8ae76 100%)',
+    'linear-gradient(180deg,#f3cf9e 0%,#f8f1e4 60%,#fdfaf2 100%)'
+  ];
+  const secs=document.querySelectorAll('section');
+  const total=document.body.scrollHeight-innerHeight;
+  ScrollTrigger.create({
+    start:0,end:()=>document.body.scrollHeight-innerHeight,scrub:.4,
+    onUpdate(self){
+      const p=self.progress;dawnT=Math.min(1,Math.max(0,(p-.35)/.45));
+      const idx=Math.min(phases.length-1,Math.floor(p*phases.length));
+      sky.style.background=phases[idx];
+      /* switch text to ink on light sky */
+      const day=p>.62;
+      document.body.classList.toggle('day',day);
+      document.body.style.color=day?'#2a2118':'#f2efe6';
+      nav.classList.toggle('light-mode',day);
+      document.getElementById('navLogo').src=day?'assets/logo-dark.png':'assets/logo-white.png';
+    }
+  });
+  gsap.to('#sun',{scale:1.06,repeat:-1,yoyo:true,duration:2.4,ease:'sine.inOut'});
+}
+</script>
+</body>
+</html>
